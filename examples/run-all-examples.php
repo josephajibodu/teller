@@ -19,7 +19,7 @@ $completedExamples = 0;
 
 foreach ($examples as $exampleFile => $exampleName) {
     echo "Running $exampleName...\n";
-    echo str_repeat('-', 50) . "\n";
+    echo str_repeat('-', 50)."\n";
 
     $startTime = microtime(true);
 
@@ -28,9 +28,9 @@ foreach ($examples as $exampleFile => $exampleName) {
     $exitCode = 0;
 
     try {
-        include __DIR__ . '/' . $exampleFile;
+        include __DIR__.'/'.$exampleFile;
     } catch (Exception $e) {
-        echo "❌ Example failed with exception: " . $e->getMessage() . "\n";
+        echo '❌ Example failed with exception: '.$e->getMessage()."\n";
         $exitCode = 1;
     }
 
@@ -43,20 +43,20 @@ foreach ($examples as $exampleFile => $exampleName) {
 
     if ($completed) {
         $completedExamples++;
-        $status = "✅ COMPLETED";
+        $status = '✅ COMPLETED';
     } else {
-        $status = "❌ FAILED";
+        $status = '❌ FAILED';
     }
 
     $results[$exampleFile] = [
         'name' => $exampleName,
         'status' => $status,
-        'duration' => $duration . 'ms',
-        'output' => $output
+        'duration' => $duration.'ms',
+        'output' => $output,
     ];
 
     echo $output;
-    echo "\n" . str_repeat('=', 50) . "\n\n";
+    echo "\n".str_repeat('=', 50)."\n\n";
 }
 
 // Summary
@@ -64,13 +64,13 @@ echo "📊 Example Summary\n";
 echo "=================\n";
 echo "Total Examples: $totalExamples\n";
 echo "Completed: $completedExamples\n";
-echo "Failed: " . ($totalExamples - $completedExamples) . "\n";
-echo "Success Rate: " . round(($completedExamples / $totalExamples) * 100, 1) . "%\n\n";
+echo 'Failed: '.($totalExamples - $completedExamples)."\n";
+echo 'Success Rate: '.round(($completedExamples / $totalExamples) * 100, 1)."%\n\n";
 
 echo "📋 Detailed Results:\n";
 echo "===================\n";
 foreach ($results as $exampleFile => $result) {
-    echo $result['status'] . " - " . $result['name'] . " (" . $result['duration'] . ")\n";
+    echo $result['status'].' - '.$result['name'].' ('.$result['duration'].")\n";
 }
 
 if ($completedExamples === $totalExamples) {
