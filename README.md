@@ -270,20 +270,20 @@ TellerConfig::set([
 ]);
 ```
 
-## 🧪 Testing
+## 🧪 Examples
 
 ```bash
-# Run individual tests
-php tests/test-plans.php
-php tests/test-customers.php
-php tests/test-subscriptions.php
-php tests/test-invoices.php
-php tests/test-money-helper.php
-php tests/test-date-helper.php
-php tests/test-fluent-api.php
+# Run individual examples
+php examples/plan-management.php
+php examples/customer-management.php
+php examples/subscription-management.php
+php examples/invoice-management.php
+php examples/money-helper.php
+php examples/date-helper.php
+php examples/fluent-api.php
 
-# Run all tests
-php tests/run-all-tests.php
+# Run all examples
+php examples/run-all-examples.php
 ```
 
 ## 🤝 Contributing

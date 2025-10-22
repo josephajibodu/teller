@@ -15,13 +15,13 @@ TellerConfig::set([
     ],
 ]);
 
-echo "📋 Testing Plan Management\n";
-echo "========================\n\n";
+echo "📋 Plan Management Example\n";
+echo "=========================\n\n";
 
 try {
     $billing = Teller::make();
 
-    // Test 1: Create a plan
+    // Example 1: Create a plan
     echo "1️⃣ Creating a new plan...\n";
     $plan = $billing->plans()->create([
         'name' => 'Test Plan ' . date('Y-m-d H:i:s'),
@@ -38,19 +38,19 @@ try {
 
     $planId = $plan['data']['id'];
 
-    // Test 2: Get all plans
+    // Example 2: Get all plans
     echo "2️⃣ Retrieving all plans...\n";
     $plans = $billing->plans()->all();
     echo "✅ Retrieved " . count($plans['data']) . " plans\n\n";
 
-    // Test 3: Find specific plan
+    // Example 3: Find specific plan
     echo "3️⃣ Finding specific plan...\n";
     $foundPlan = $billing->plans()->find($planId);
     echo "✅ Plan found!\n";
     echo "   Name: " . $foundPlan['data']['name'] . "\n";
     echo "   Amount: " . $foundPlan['data']['amount'] . " kobo\n\n";
 
-    // Test 4: Update plan
+    // Example 4: Update plan
     echo "4️⃣ Updating plan...\n";
     $updatedPlan = $billing->plans()->update($planId, [
         'name' => 'Updated Test Plan',
@@ -60,12 +60,12 @@ try {
     echo "   New name: " . $updatedPlan['data']['name'] . "\n";
     echo "   Description: " . $updatedPlan['data']['description'] . "\n\n";
 
-    // Test 5: Delete plan
+    // Example 5: Delete plan
     echo "5️⃣ Deleting plan...\n";
     $deleteResult = $billing->plans()->delete($planId);
     echo "✅ Plan deleted successfully!\n\n";
 
-    echo "🎉 All plan management tests passed!\n";
+    echo "🎉 Plan management example completed successfully!\n";
 
 } catch (Exception $e) {
     echo "❌ Error: " . $e->getMessage() . "\n";
