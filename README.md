@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/josephajibodu/teller.svg?style=flat-square)](https://packagist.org/packages/josephajibodu/teller)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-A clean, developer-friendly subscription billing abstraction layer for Laravel that brings Stripe-like subscription and proration features to Paystack and Flutterwave.
+A clean, developer-friendly subscription billing abstraction layer for PHP that brings Stripe-like subscription and proration features to Paystack and Flutterwave.
 
 ## 🚀 The Problem (and Opportunity)
 
@@ -42,25 +42,30 @@ Paystack and Flutterwave provide billing rails, not billing logic. That means:
 composer require josephajibodu/teller
 ```
 
-### Laravel Integration
+### Configuration
 
-Publish the configuration file:
+Configure Teller with your gateway credentials:
 
-```bash
-php artisan vendor:publish --provider="JosephAjibodu\Teller\TellerServiceProvider" --tag="teller-config"
-```
+```php
+use JosephAjibodu\Teller\Helpers\TellerConfig;
 
-Add your gateway credentials to your `.env` file:
-
-```env
-TELLER_DEFAULT_GATEWAY=paystack
-PAYSTACK_SECRET_KEY=sk_test_...
-PAYSTACK_PUBLIC_KEY=pk_test_...
-PAYSTACK_WEBHOOK_SECRET=whsec_...
-
-FLUTTERWAVE_SECRET_KEY=FLWSECK_TEST-...
-FLUTTERWAVE_PUBLIC_KEY=FLWPUBK_TEST-...
-FLUTTERWAVE_WEBHOOK_SECRET=your_webhook_secret
+TellerConfig::set([
+    'default_gateway' => 'paystack',
+    'gateways' => [
+        'paystack' => [
+            'secret_key' => 'sk_test_...',
+            'public_key' => 'pk_test_...',
+        ],
+        'flutterwave' => [
+            'secret_key' => 'FLWSECK_TEST-...',
+            'public_key' => 'FLWPUBK_TEST-...',
+        ],
+    ],
+    'proration' => [
+        'enabled' => true,
+        'rounding' => 'up',
+    ],
+]);
 ```
 
 ## 🎯 Quick Start
@@ -173,33 +178,25 @@ $invoices = $billing->invoices()->all(['customer_id' => 'customer-id']);
 ### Webhook Handling
 
 ```php
-// In your Laravel controller
-Route::post('/billing/webhook', [BillingWebhookController::class, 'handle']);
+// In your webhook endpoint
+$event = Teller::webhooks()->handle($_POST);
 
-class BillingWebhookController extends Controller
-{
-    public function handle(Request $request)
-    {
-        $event = Teller::webhooks()->handle($request->all());
-
-        switch ($event->type) {
-            case 'subscription.created':
-                // Handle new subscription
-                break;
-            case 'subscription.renewed':
-                // Handle subscription renewal
-                break;
-            case 'subscription.upgraded':
-                // Handle subscription upgrade
-                break;
-            case 'subscription.cancelled':
-                // Handle subscription cancellation
-                break;
-            case 'payment.failed':
-                // Handle failed payment
-                break;
-        }
-    }
+switch ($event->type) {
+    case 'subscription.created':
+        // Handle new subscription
+        break;
+    case 'subscription.renewed':
+        // Handle subscription renewal
+        break;
+    case 'subscription.upgraded':
+        // Handle subscription upgrade
+        break;
+    case 'subscription.cancelled':
+        // Handle subscription cancellation
+        break;
+    case 'payment.failed':
+        // Handle failed payment
+        break;
 }
 ```
 
@@ -247,35 +244,46 @@ $nextBilling = DateHelper::nextBillingDate($date, 'monthly');
 ## ⚙️ Configuration
 
 ```php
-// config/teller.php
-return [
-    'default_gateway' => env('TELLER_DEFAULT_GATEWAY', 'paystack'),
+use JosephAjibodu\Teller\Helpers\TellerConfig;
+
+TellerConfig::set([
+    'default_gateway' => 'paystack',
     
     'gateways' => [
         'paystack' => [
-            'secret_key' => env('PAYSTACK_SECRET_KEY'),
-            'public_key' => env('PAYSTACK_PUBLIC_KEY'),
-            'webhook_secret' => env('PAYSTACK_WEBHOOK_SECRET'),
+            'secret_key' => 'sk_test_...',
+            'public_key' => 'pk_test_...',
+            'webhook_secret' => 'whsec_...',
         ],
         'flutterwave' => [
-            'secret_key' => env('FLUTTERWAVE_SECRET_KEY'),
-            'public_key' => env('FLUTTERWAVE_PUBLIC_KEY'),
-            'webhook_secret' => env('FLUTTERWAVE_WEBHOOK_SECRET'),
+            'secret_key' => 'FLWSECK_TEST-...',
+            'public_key' => 'FLWPUBK_TEST-...',
+            'webhook_secret' => 'your_webhook_secret',
         ],
     ],
     
     'proration' => [
-        'enabled' => env('TELLER_PRORATION_ENABLED', true),
-        'rounding' => env('TELLER_PRORATION_ROUNDING', 'up'),
-        'cutoff_day' => env('TELLER_PRORATION_CUTOFF_DAY', 25),
+        'enabled' => true,
+        'rounding' => 'up',
+        'cutoff_day' => 25,
     ],
-];
+]);
 ```
 
 ## 🧪 Testing
 
 ```bash
-composer test
+# Run individual tests
+php tests/test-plans.php
+php tests/test-customers.php
+php tests/test-subscriptions.php
+php tests/test-invoices.php
+php tests/test-money-helper.php
+php tests/test-date-helper.php
+php tests/test-fluent-api.php
+
+# Run all tests
+php tests/run-all-tests.php
 ```
 
 ## 🤝 Contributing
@@ -288,7 +296,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## 🙏 Acknowledgments
 
-- Inspired by Laravel Cashier
+- Inspired by Stripe's billing API design
 - Built for the African developer community
 - Special thanks to Paystack and Flutterwave for their excellent APIs
 
