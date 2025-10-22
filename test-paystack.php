@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
-use JosephAjibodu\Teller\Teller;
 use JosephAjibodu\Teller\Helpers\TellerConfig;
-use JosephAjibodu\Teller\Support\Money;
 use JosephAjibodu\Teller\Support\DateHelper;
+use JosephAjibodu\Teller\Support\Money;
+use JosephAjibodu\Teller\Teller;
 
 // Configure Teller with your Paystack secret key
 TellerConfig::set([
@@ -31,144 +31,144 @@ try {
     // ===========================================
     // 1. PLAN MANAGEMENT TESTS
     // ===========================================
-//    echo "📋 Testing Plan Management...\n";
-//
-//    // Create a plan
-//    $plan = $billing->plans()->create([
-//        'name' => 'Pro Plan',
-//        'amount' => 25000, // 250 NGN in kobo
-//        'interval' => 'monthly',
-//        'description' => 'Access to premium features',
-//    ]);
-//
-//    echo "✅ Plan created successfully!\n";
-//    echo "   Plan ID: " . $plan['data']['id'] . "\n";
-//    echo "   Plan Name: " . $plan['data']['name'] . "\n";
-//    echo "   Amount: " . $plan['data']['amount'] . " kobo\n";
-//    echo "   Interval: " . $plan['data']['interval'] . "\n\n";
-//
-//    $planId = $plan['data']['id'];
-//
-//    // Get all plans
-//    $plans = $billing->plans()->all();
-//    echo "✅ Retrieved " . count($plans['data']) . " plans\n\n";
-//    exit();
+    //    echo "📋 Testing Plan Management...\n";
+    //
+    //    // Create a plan
+    //    $plan = $billing->plans()->create([
+    //        'name' => 'Pro Plan',
+    //        'amount' => 25000, // 250 NGN in kobo
+    //        'interval' => 'monthly',
+    //        'description' => 'Access to premium features',
+    //    ]);
+    //
+    //    echo "✅ Plan created successfully!\n";
+    //    echo "   Plan ID: " . $plan['data']['id'] . "\n";
+    //    echo "   Plan Name: " . $plan['data']['name'] . "\n";
+    //    echo "   Amount: " . $plan['data']['amount'] . " kobo\n";
+    //    echo "   Interval: " . $plan['data']['interval'] . "\n\n";
+    //
+    //    $planId = $plan['data']['id'];
+    //
+    //    // Get all plans
+    //    $plans = $billing->plans()->all();
+    //    echo "✅ Retrieved " . count($plans['data']) . " plans\n\n";
+    //    exit();
 
     // ===========================================
     // 2. CUSTOMER MANAGEMENT TESTS
     // ===========================================
-//    echo "👤 Testing Customer Management...\n";
-//
-//    // Create a customer
-//    $customer = $billing->customers()->create([
-//        'email' => 'test@example.com',
-//        'name' => 'Test Customer',
-//        'metadata' => ['test' => true],
-//    ]);
-//
-//    echo "✅ Customer created successfully!\n";
-//    echo "   Customer ID: " . $customer['data']['id'] . "\n";
-//    echo "   Email: " . $customer['data']['email'] . "\n";
-//    echo "   Name: " . $customer['data']['first_name'] . " " . $customer['data']['last_name'] . "\n\n";
-//
-//    $customerId = $customer['data']['id'];
+    //    echo "👤 Testing Customer Management...\n";
+    //
+    //    // Create a customer
+    //    $customer = $billing->customers()->create([
+    //        'email' => 'test@example.com',
+    //        'name' => 'Test Customer',
+    //        'metadata' => ['test' => true],
+    //    ]);
+    //
+    //    echo "✅ Customer created successfully!\n";
+    //    echo "   Customer ID: " . $customer['data']['id'] . "\n";
+    //    echo "   Email: " . $customer['data']['email'] . "\n";
+    //    echo "   Name: " . $customer['data']['first_name'] . " " . $customer['data']['last_name'] . "\n\n";
+    //
+    //    $customerId = $customer['data']['id'];
 
     // ===========================================
     // 3. SUBSCRIPTION MANAGEMENT TESTS
     // ===========================================
-//    echo "💳 Testing Subscription Management...\n";
-//
-//    // Create a subscription
-//    $subscription = $billing->subscriptions()->create('CUS_z5l5cmw4vxfz7du', [
-//        'plan' => 'PLN_kn6wmji26ytq8ma',
-//    ]);
-//
-//    echo "✅ Subscription created successfully!\n";
-//    echo "   Subscription ID: " . $subscription['data']['id'] . "\n";
-//    echo "   Status: " . $subscription['data']['status'] . "\n";
-//    echo "   Plan: " . $subscription['data']['plan']['name'] . "\n\n";
-//
-//    $subscriptionId = $subscription['data']['id'];
-//    exit();
+    //    echo "💳 Testing Subscription Management...\n";
+    //
+    //    // Create a subscription
+    //    $subscription = $billing->subscriptions()->create('CUS_z5l5cmw4vxfz7du', [
+    //        'plan' => 'PLN_kn6wmji26ytq8ma',
+    //    ]);
+    //
+    //    echo "✅ Subscription created successfully!\n";
+    //    echo "   Subscription ID: " . $subscription['data']['id'] . "\n";
+    //    echo "   Status: " . $subscription['data']['status'] . "\n";
+    //    echo "   Plan: " . $subscription['data']['plan']['name'] . "\n\n";
+    //
+    //    $subscriptionId = $subscription['data']['id'];
+    //    exit();
 
     // ===========================================
     // 4. INVOICE MANAGEMENT TESTS
     // ===========================================
-//    echo "🧾 Testing Invoice Management...\n";
-//
-//    // Create an invoice
-//    $invoice = $billing->invoices()->create([
-//        'customer' => 'CUS_z5l5cmw4vxfz7du',
-//        'description' => 'Extra storage space',
-//        'line_items' => [
-//            [
-//                'name' => 'Tripod stand',
-//                'amount' => 2000000,
-//                'quantity' => 1,
-//            ],
-//            [
-//                'name' => 'Lenses',
-//                'amount' => 300000,
-//                'quantity' => 1,
-//            ],
-//            [
-//                'name' => 'White Bulbs',
-//                'amount' => 50000,
-//                'quantity' => 5,
-//            ],
-//        ]
-//    ]);
-//
-//    echo "✅ Invoice created successfully!\n";
-//    echo "   Invoice ID: " . $invoice['data']['id'] . "\n";
-//    echo "   Amount: " . $invoice['data']['amount'] . " kobo\n";
-//    echo "   Description: " . $invoice['data']['description'] . "\n\n";
-//    exit();
+    //    echo "🧾 Testing Invoice Management...\n";
+    //
+    //    // Create an invoice
+    //    $invoice = $billing->invoices()->create([
+    //        'customer' => 'CUS_z5l5cmw4vxfz7du',
+    //        'description' => 'Extra storage space',
+    //        'line_items' => [
+    //            [
+    //                'name' => 'Tripod stand',
+    //                'amount' => 2000000,
+    //                'quantity' => 1,
+    //            ],
+    //            [
+    //                'name' => 'Lenses',
+    //                'amount' => 300000,
+    //                'quantity' => 1,
+    //            ],
+    //            [
+    //                'name' => 'White Bulbs',
+    //                'amount' => 50000,
+    //                'quantity' => 5,
+    //            ],
+    //        ]
+    //    ]);
+    //
+    //    echo "✅ Invoice created successfully!\n";
+    //    echo "   Invoice ID: " . $invoice['data']['id'] . "\n";
+    //    echo "   Amount: " . $invoice['data']['amount'] . " kobo\n";
+    //    echo "   Description: " . $invoice['data']['description'] . "\n\n";
+    //    exit();
 
     // ===========================================
     // 5. MONEY HELPER TESTS
     // ===========================================
-//    echo "💰 Testing Money Helper...\n";
-//
-//    $amount = Money::fromNaira(250.00);
-//    echo "✅ Money object created: " . $amount->format() . "\n";
-//    echo "   In kobo: " . $amount->toKobo() . "\n";
-//    echo "   In naira: " . $amount->toNaira() . "\n";
-//
-//    $discount = $amount->multiply(0.1);
-//    echo "   10% discount: " . $discount->format() . "\n";
-//
-//    $total = $amount->add(Money::fromNaira(50.00));
-//    echo "   Total with 50 NGN: " . $total->format() . "\n\n";
-//    exit();
+    //    echo "💰 Testing Money Helper...\n";
+    //
+    //    $amount = Money::fromNaira(250.00);
+    //    echo "✅ Money object created: " . $amount->format() . "\n";
+    //    echo "   In kobo: " . $amount->toKobo() . "\n";
+    //    echo "   In naira: " . $amount->toNaira() . "\n";
+    //
+    //    $discount = $amount->multiply(0.1);
+    //    echo "   10% discount: " . $discount->format() . "\n";
+    //
+    //    $total = $amount->add(Money::fromNaira(50.00));
+    //    echo "   Total with 50 NGN: " . $total->format() . "\n\n";
+    //    exit();
     // ===========================================
     // 6. DATE HELPER TESTS
     // ===========================================
-//    echo "📅 Testing Date Helper...\n";
-//
-//    $date = new \DateTime();
-//    $daysInMonth = DateHelper::daysInMonth($date);
-//    $daysRemaining = DateHelper::daysRemainingInMonth($date);
-//    $nextBilling = DateHelper::nextBillingDate($date, 'monthly');
-//
-//    echo "✅ Date calculations:\n";
-//    echo "   Days in current month: " . $daysInMonth . "\n";
-//    echo "   Days remaining: " . $daysRemaining . "\n";
-//    echo "   Next billing date: " . $nextBilling->format('Y-m-d') . "\n\n";
-//    exit();
+    //    echo "📅 Testing Date Helper...\n";
+    //
+    //    $date = new \DateTime();
+    //    $daysInMonth = DateHelper::daysInMonth($date);
+    //    $daysRemaining = DateHelper::daysRemainingInMonth($date);
+    //    $nextBilling = DateHelper::nextBillingDate($date, 'monthly');
+    //
+    //    echo "✅ Date calculations:\n";
+    //    echo "   Days in current month: " . $daysInMonth . "\n";
+    //    echo "   Days remaining: " . $daysRemaining . "\n";
+    //    echo "   Next billing date: " . $nextBilling->format('Y-m-d') . "\n\n";
+    //    exit();
     // ===========================================
     // 7. FLUENT API TESTS
     // ===========================================
-//    echo "🔗 Testing Fluent API...\n";
-//
-//    // Test the fluent API
-//    $fluentResult = Teller::for('CUS_z5l5cmw4vxfz7du')
-//        ->subscriptions()
-//        ->find('SUB_0a43verohca0444');
-//
-//    echo "✅ Fluent API works!\n";
-//    echo "   Retrieved subscription via fluent API\n\n";
-//    exit();
+    //    echo "🔗 Testing Fluent API...\n";
+    //
+    //    // Test the fluent API
+    //    $fluentResult = Teller::for('CUS_z5l5cmw4vxfz7du')
+    //        ->subscriptions()
+    //        ->find('SUB_0a43verohca0444');
+    //
+    //    echo "✅ Fluent API works!\n";
+    //    echo "   Retrieved subscription via fluent API\n\n";
+    //    exit();
     // ===========================================
     // 8. ERROR HANDLING TESTS
     // ===========================================
@@ -181,7 +181,7 @@ try {
             'amount' => -1000, // Negative amount should fail
         ]);
     } catch (Exception $e) {
-        echo "✅ Error handling works: " . $e->getMessage() . "\n\n";
+        echo '✅ Error handling works: '.$e->getMessage()."\n\n";
     }
 
     // ===========================================
@@ -201,7 +201,7 @@ try {
     echo "🚀 Teller package is ready for production!\n";
 
 } catch (Exception $e) {
-    echo "❌ Error: " . $e->getMessage() . "\n";
+    echo '❌ Error: '.$e->getMessage()."\n";
 
     // Provide debugging tips
     echo "\n🔧 Debugging Tips:\n";
@@ -212,5 +212,5 @@ try {
 
     // Show the full error for debugging
     echo "\n📋 Full Error Details:\n";
-    echo $e->getTraceAsString() . "\n";
+    echo $e->getTraceAsString()."\n";
 }

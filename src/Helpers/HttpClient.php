@@ -5,7 +5,9 @@ namespace JosephAjibodu\Teller\Helpers;
 class HttpClient
 {
     protected string $baseUrl;
+
     protected string $secret;
+
     protected array $headers;
 
     public function __construct(string $baseUrl, string $secret, array $headers = [])
@@ -17,9 +19,9 @@ class HttpClient
 
     public function get(string $endpoint, array $query = [])
     {
-        $url = $this->baseUrl . $endpoint;
-        if (!empty($query)) {
-            $url .= '?' . http_build_query($query);
+        $url = $this->baseUrl.$endpoint;
+        if (! empty($query)) {
+            $url .= '?'.http_build_query($query);
         }
 
         return $this->makeRequest('GET', $url);
@@ -27,19 +29,22 @@ class HttpClient
 
     public function post(string $endpoint, array $data = [])
     {
-        $url = $this->baseUrl . $endpoint;
+        $url = $this->baseUrl.$endpoint;
+
         return $this->makeRequest('POST', $url, $data);
     }
 
     public function put(string $endpoint, array $data = [])
     {
-        $url = $this->baseUrl . $endpoint;
+        $url = $this->baseUrl.$endpoint;
+
         return $this->makeRequest('PUT', $url, $data);
     }
 
     public function delete(string $endpoint)
     {
-        $url = $this->baseUrl . $endpoint;
+        $url = $this->baseUrl.$endpoint;
+
         return $this->makeRequest('DELETE', $url);
     }
 
@@ -59,7 +64,7 @@ class HttpClient
             CURLOPT_HTTPHEADER => $headers,
         ]);
 
-        if (!empty($data)) {
+        if (! empty($data)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
@@ -75,12 +80,12 @@ class HttpClient
         $decoded = json_decode($response, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception("Invalid JSON response: " . json_last_error_msg());
+            throw new \Exception('Invalid JSON response: '.json_last_error_msg());
         }
 
         // Check for Paystack API errors
         if (isset($decoded['status']) && $decoded['status'] === false) {
-            throw new \Exception("Paystack API Error: " . ($decoded['message'] ?? 'Unknown error'));
+            throw new \Exception('Paystack API Error: '.($decoded['message'] ?? 'Unknown error'));
         }
 
         return $decoded;

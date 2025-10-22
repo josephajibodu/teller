@@ -19,7 +19,7 @@ $passedTests = 0;
 
 foreach ($tests as $testFile => $testName) {
     echo "Running $testName...\n";
-    echo str_repeat('-', 50) . "\n";
+    echo str_repeat('-', 50)."\n";
 
     $startTime = microtime(true);
 
@@ -28,9 +28,9 @@ foreach ($tests as $testFile => $testName) {
     $exitCode = 0;
 
     try {
-        include __DIR__ . '/' . $testFile;
+        include __DIR__.'/'.$testFile;
     } catch (Exception $e) {
-        echo "❌ Test failed with exception: " . $e->getMessage() . "\n";
+        echo '❌ Test failed with exception: '.$e->getMessage()."\n";
         $exitCode = 1;
     }
 
@@ -43,20 +43,20 @@ foreach ($tests as $testFile => $testName) {
 
     if ($passed) {
         $passedTests++;
-        $status = "✅ PASSED";
+        $status = '✅ PASSED';
     } else {
-        $status = "❌ FAILED";
+        $status = '❌ FAILED';
     }
 
     $results[$testFile] = [
         'name' => $testName,
         'status' => $status,
-        'duration' => $duration . 'ms',
-        'output' => $output
+        'duration' => $duration.'ms',
+        'output' => $output,
     ];
 
     echo $output;
-    echo "\n" . str_repeat('=', 50) . "\n\n";
+    echo "\n".str_repeat('=', 50)."\n\n";
 }
 
 // Summary
@@ -64,13 +64,13 @@ echo "📊 Test Summary\n";
 echo "==============\n";
 echo "Total Tests: $totalTests\n";
 echo "Passed: $passedTests\n";
-echo "Failed: " . ($totalTests - $passedTests) . "\n";
-echo "Success Rate: " . round(($passedTests / $totalTests) * 100, 1) . "%\n\n";
+echo 'Failed: '.($totalTests - $passedTests)."\n";
+echo 'Success Rate: '.round(($passedTests / $totalTests) * 100, 1)."%\n\n";
 
 echo "📋 Detailed Results:\n";
 echo "===================\n";
 foreach ($results as $testFile => $result) {
-    echo $result['status'] . " - " . $result['name'] . " (" . $result['duration'] . ")\n";
+    echo $result['status'].' - '.$result['name'].' ('.$result['duration'].")\n";
 }
 
 if ($passedTests === $totalTests) {

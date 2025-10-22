@@ -10,12 +10,12 @@ class Teller
 
     public static function make(): GatewayManager
     {
-        return static::$manager ??= new GatewayManager();
+        return static::$manager ??= new GatewayManager;
     }
 
     public static function gateway(string $name): GatewayManager
     {
-        return (new GatewayManager())->useGateway($name);
+        return (new GatewayManager)->useGateway($name);
     }
 
     public static function for($user): GatewayManager
