@@ -1,16 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "josephajibodu/teller",
+    "description": "A clean, developer-friendly subscription billing abstraction layer for Laravel that brings Stripe-like subscription and proration features to Paystack and Flutterwave.",
     "keywords": [
-        ":vendor_name",
-        ":package_slug"
+        "josephajibodu",
+        "teller",
+        "cashier",
+        "laravel",
+        "billing",
+        "subscription",
+        "payment",
+        "paystack",
+        "flutterwave",
+        "proration",
+        "saas",
+        "africa",
+        "stripe-like"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/josephajibodu/teller",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "josephajibodu",
+            "email": "josephajibodu@gmail.com",
             "role": "Developer"
         }
     ],
@@ -18,28 +29,29 @@
         "php": "^8.4"
     },
     "require-dev": {
-        :require_dev_testing,
-        :require_dev_codestyle,
+        "pestphp/pest": "^4.0",
+        "laravel/pint": "^1.0",
         "spatie/ray": "^1.28"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "JosephAjibodu\\Teller\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "JosephAjibodu\\Teller\\Tests\\": "tests"
         }
     },
     "scripts": {
-        :scripts_testing,
-        :scripts_codestyle
+        "test": "vendor/bin/pest",
+            "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            :plugins_testing,
+            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
     },
