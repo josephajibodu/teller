@@ -40,7 +40,9 @@ class TellerConfig
         $value = static::$config;
 
         foreach ($segments as $segment) {
-            if (!isset($value[$segment])) return $default;
+            if (! isset($value[$segment])) {
+                return $default;
+            }
             $value = $value[$segment];
         }
 

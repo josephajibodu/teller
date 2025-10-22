@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 use JosephAjibodu\Teller\Teller;
 
@@ -188,7 +188,7 @@ try {
     ]);
 } catch (\Exception $e) {
     // Handle gateway-specific errors
-    echo "Error: " . $e->getMessage();
+    echo 'Error: '.$e->getMessage();
 }
 
 // ===========================================
@@ -229,7 +229,7 @@ $formatted = $amount->format(); // "250.00 NGN"
 
 use JosephAjibodu\Teller\Support\DateHelper;
 
-$date = new \DateTime();
+$date = new \DateTime;
 
 // Get billing information
 $daysInMonth = DateHelper::daysInMonth($date);
@@ -237,4 +237,4 @@ $daysRemaining = DateHelper::daysRemainingInMonth($date);
 $nextBilling = DateHelper::nextBillingDate($date, 'monthly');
 
 echo "Days remaining in month: {$daysRemaining}";
-echo "Next billing date: " . $nextBilling->format('Y-m-d');
+echo 'Next billing date: '.$nextBilling->format('Y-m-d');

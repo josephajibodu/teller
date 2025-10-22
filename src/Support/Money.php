@@ -31,7 +31,7 @@ class Money
 
     public function format(): string
     {
-        return number_format($this->toNaira(), 2) . ' ' . $this->currency;
+        return number_format($this->toNaira(), 2).' '.$this->currency;
     }
 
     public function add(Money $other): self

@@ -8,13 +8,14 @@ use JosephAjibodu\Teller\Helpers\HttpClient;
 class PaystackGateway implements GatewayInterface
 {
     protected string $secret;
+
     protected HttpClient $client;
 
     public function __construct(string $secret)
     {
         $this->secret = $secret;
         $this->client = new HttpClient('https://api.paystack.co', $secret, [
-            'Authorization' => 'Bearer ' . $secret,
+            'Authorization' => 'Bearer '.$secret,
             'Content-Type' => 'application/json',
         ]);
     }
@@ -64,7 +65,7 @@ class PaystackGateway implements GatewayInterface
     public function updateCard(string $customerId, string $cardToken)
     {
         return $this->client->put("/customer/{$customerId}", [
-            'authorization_code' => $cardToken
+            'authorization_code' => $cardToken,
         ]);
     }
 
@@ -90,17 +91,17 @@ class PaystackGateway implements GatewayInterface
 
     public function cancelSubscription(string $subscriptionId)
     {
-        return $this->client->post("/subscription/disable", [
+        return $this->client->post('/subscription/disable', [
             'code' => $subscriptionId,
-            'token' => $this->secret
+            'token' => $this->secret,
         ]);
     }
 
     public function resumeSubscription(string $subscriptionId)
     {
-        return $this->client->post("/subscription/enable", [
+        return $this->client->post('/subscription/enable', [
             'code' => $subscriptionId,
-            'token' => $this->secret
+            'token' => $this->secret,
         ]);
     }
 
@@ -116,9 +117,9 @@ class PaystackGateway implements GatewayInterface
 
     public function pauseSubscription(string $subscriptionId)
     {
-        return $this->client->post("/subscription/disable", [
+        return $this->client->post('/subscription/disable', [
             'code' => $subscriptionId,
-            'token' => $this->secret
+            'token' => $this->secret,
         ]);
     }
 
@@ -136,6 +137,7 @@ class PaystackGateway implements GatewayInterface
     public function listInvoices(array $filters = [])
     {
         $query = http_build_query($filters);
+
         return $this->client->get("/paymentrequest?{$query}");
     }
 
